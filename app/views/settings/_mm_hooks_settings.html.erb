@@ -1,0 +1,52 @@
+<h2>MM_HOOKS</h2>
+
+<h3>Général</h3>
+<p>
+  <label>Mattermost URL</label>
+  <%= text_field_tag 'settings[mm_url]', @settings['mm_url'] %><br />
+  <em>URL vers Mattermost 'https://mm.cameros.fr'</em>
+</p>
+
+<p>
+  <label>Mattermost Hook Key</label>
+  <%= text_field_tag 'settings[mm_key]', @settings['mm_key'] %><br />
+  <em>Clé du hook Mattermost</em>
+</p>
+
+<p>
+  <label>Redmine URL</label>
+  <%= text_field_tag 'settings[rm_url]', @settings['rm_url'] %><br />
+  <em>URL vers redmine 'https://projects.cameros.fr'</em>
+</p>
+
+<h3>Équipe technique</h3>
+<p>
+<label>Utilisateur équipe technique</label>
+<%= select_tag 'settings[obs_user]',
+  options_for_select(User.where(status: 1).collect{|u| [u.name,u.id]}, @settings['obs_user']) %><br />
+  <em><%=t 'autoclose.user.description' %></em>
+</p>
+
+<p>
+<label>Priorités</label>
+<%= select_tag 'settings[obs_priorities]',
+  options_for_select(IssuePriority.pluck(:name, :id), @settings['obs_priorities'] || [@settings['obs_priorities']]),
+  multiple: true,
+  size: 10 %><br />
+</p>
+
+<p>
+<label>Trackers</label>
+<%= select_tag 'settings[obs_trackers]',
+  options_for_select(Tracker.pluck(:name, :id), @settings['obs_trackers'] || [@settings['obs_trackers']]),
+  multiple: true,
+  size: 10 %><br />
+</p>
+
+<p>
+<label>Status</label>
+<%= select_tag 'settings[obs_statuses]',
+  options_for_select(IssueStatus.pluck(:name, :id), @settings['obs_statuses'] || [@settings['obs_statuses']]),
+  multiple: true,
+  size: 5 %><br />
+</p>
